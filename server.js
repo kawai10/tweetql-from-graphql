@@ -3,11 +3,13 @@ import {ApolloServer, gql} from "apollo-server";
 let tweets = [
     {
         id:'1',
-        text:'first one'
+        text:'first one',
+        userId:"2"
     },
     {
         id:'2',
-        text:'second one'
+        text:'second one',
+        userId:"1"
     }
 ]
 
@@ -50,6 +52,11 @@ const typeDefs = gql`
 `
 
 const resolvers = {
+    Tweet : {
+      author({userId}){
+          return users.find(element => element.id === userId)
+      }
+    },
     User: {
         fullName({firstName, lastName}){
             return `${firstName} ${lastName}`
@@ -70,7 +77,8 @@ const resolvers = {
         postTweet(_, {text,userId}){
             const newTweet = {
                 id:tweets.length+1,
-                text
+                text,
+                userId
             }
             tweets.push(newTweet)
             return newTweet
