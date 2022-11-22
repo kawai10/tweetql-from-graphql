@@ -33,7 +33,13 @@ const typeDefs = gql`
         lastName: String
         fullName : String!
     }
+    """
+    description Test
+    """
     type Tweet {
+        """
+        id description Test
+        """
         id: ID
         text : String
         author : User
